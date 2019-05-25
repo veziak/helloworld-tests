@@ -1,0 +1,5 @@
+requests
+faker
+assertpy
+pytest
+teamcity-messages
