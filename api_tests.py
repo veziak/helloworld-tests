@@ -1,13 +1,14 @@
 import datetime
 import json
 
+import namesgenerator
 from faker import Faker
-from api import put_user, get_usermessage
+from api import put_user, get_user_message
 
 
 def random_username():
-    fake = Faker()
-    username = fake.simple_profile()['name'].lower().replace(' ', '')
+
+    username = namesgenerator.get_random_name().replace('_', '')
     print(f'username: {username}')
     return username
 
@@ -34,7 +35,7 @@ def test_update_user():
     result = put_user(username, f"{tomorrow.year - 10}-{tomorrow.month:02d}-{tomorrow.day:02d}")
     assert result.status_code == 204
 
-    result = get_usermessage(username)
+    result = get_user_message(username)
     assert result.status_code == 200
     c = json.loads(result.content)
     assert 'message' in c
@@ -43,7 +44,7 @@ def test_update_user():
     result = put_user(username, f"{after_tomorrow.year - 10}-{after_tomorrow.month:02d}-{after_tomorrow.day:02d}")
     assert result.status_code == 204
 
-    result = get_usermessage(username)
+    result = get_user_message(username)
     assert result.status_code == 200
     c = json.loads(result.content)
     assert 'message' in c
@@ -57,7 +58,7 @@ def test_happy_birthday_message():
     result = put_user(username, f"{now.year - 10}-{now.month:02d}-{now.day:02d}")
     assert result.status_code == 204
 
-    result = get_usermessage(username)
+    result = get_user_message(username)
     assert result.status_code == 200
     c = json.loads(result.content)
     assert 'message' in c
