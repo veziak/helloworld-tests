@@ -1,13 +1,13 @@
-import json
-
 import requests
+
+from config import BASE_URL
 
 
 def _url(path):
-    return f'http://localhost:8081{path}'
+    return BASE_URL + path
 
 
-def get_usermessage(username):
+def get_user_message(username):
     return requests.get(_url(f'/hello/{username}'))
 
 

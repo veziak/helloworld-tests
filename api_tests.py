@@ -1,8 +1,6 @@
 import datetime
 import json
-
 import namesgenerator
-from faker import Faker
 from api import put_user, get_user_message
 
 
