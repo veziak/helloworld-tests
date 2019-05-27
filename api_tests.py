@@ -1,7 +1,7 @@
 import datetime
 import json
 import namesgenerator
-from api import put_user, get_user_message
+from api import put_user, get_user_message, healthcheck, version
 
 
 def random_username():
@@ -61,3 +61,13 @@ def test_happy_birthday_message():
     c = json.loads(result.content)
     assert 'message' in c
     assert c['message'] == f"Hello, {username}! Happy birthday!"
+
+
+def test_healthcheck():
+    result = healthcheck()
+    assert result.status_code == 200
+
+
+def test_version():
+    result = version()
+    assert result.status_code == 200
